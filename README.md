@@ -1,20 +1,68 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# BookQuest
 
-# Run and deploy your AI Studio app
+BookQuest is a playful book catalog app that lets readers sign in with Google, scan a book cover, extract the title and author with Gemini, and save the result to a personal Firebase library.
 
-This contains everything you need to run your app locally.
+## Preview
 
-View your app in AI Studio: https://ai.studio/apps/c01deb9d-0972-4d7c-b1e2-5d8796f87632
+![BookQuest UI](ui.png)
 
-## Run Locally
+## What It Does
 
-**Prerequisites:**  Node.js
+- Google sign-in for personal libraries
+- Cover scanning powered by Gemini image extraction
+- Firebase Firestore storage for cataloged books
+- Search across saved titles and authors
+- Book detail cards and a clean, mobile-friendly landing experience
 
+## Tech Stack
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- React 19 + Vite
+- TypeScript
+- Firebase Auth + Firestore
+- Gemini API
+- Motion and Lucide for UI interactions and icons
+
+## Local Setup
+
+### Prerequisites
+
+- Node.js
+- A Firebase project with Authentication and Firestore enabled
+- A Gemini API key
+
+### Install
+
+```bash
+npm install
+```
+
+### Environment
+
+Create a local environment file and set the Gemini key:
+
+```bash
+GEMINI_API_KEY="your-gemini-api-key"
+APP_URL="http://localhost:3000"
+```
+
+The Firebase client configuration is loaded from [firebase-applet-config.json](firebase-applet-config.json), so make sure that file matches your Firebase project.
+
+### Run
+
+```bash
+npm run dev
+```
+
+The app runs on port `3000` by default.
+
+## Build
+
+```bash
+npm run build
+```
+
+## Notes
+
+- Book cover scanning sends the image to Gemini and expects a JSON response with `title` and `author`.
+- Books are stored per user in Firestore under the `books` collection.
+- If scanning fails, the app shows a friendly retry message and keeps the existing library intact.
