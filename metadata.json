@@ -1,0 +1,8 @@
+{
+  "name": "BookQuest",
+  "description": "A colorful and playful book tracker where you can scan book covers to build your personal digital library.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": []
+}

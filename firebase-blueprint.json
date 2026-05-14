@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "Book": {
+      "title": "Book",
+      "description": "A book in the archivist's journal",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the book" },
+        "author": { "type": "string", "description": "The author of the book" },
+        "dateCataloged": { "type": "string", "format": "date-time", "description": "When the book was scanned" },
+        "userId": { "type": "string", "description": "The UID of the user who owns this record" },
+        "coverUrl": { "type": "string", "description": "Optional URL or placeholder for the book cover image" }
+      },
+      "required": ["title", "author", "dateCataloged", "userId"]
+    }
+  },
+  "firestore": {
+    "books/{bookId}": {
+      "schema": "Book",
+      "description": "Collection of cataloged books"
+    }
+  }
+}

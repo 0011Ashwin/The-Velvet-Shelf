@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fredoka", sans-serif;
+  
+  --color-playful-teal: #14b8a6;
+  --color-playful-pink: #f43f5e;
+  --color-playful-yellow: #facc15;
+  --color-playful-coral: #fb7185;
+  --color-playful-bg: #f8fafc;
+  --color-playful-text: #1e293b;
+}
+
+@layer base {
+  body {
+    @apply bg-playful-bg text-playful-text font-sans antialiased;
+    background-image: 
+      radial-gradient(circle at 0% 0%, rgba(20, 184, 166, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(244, 63, 94, 0.05) 0%, transparent 50%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-playful-teal font-display;
+  }
+}
+
+.playful-card {
+  @apply bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)] hover:-translate-y-1;
+}
+
+.bubbly-button {
+  @apply relative inline-flex items-center justify-center rounded-full bg-playful-teal text-white font-bold px-8 py-3 shadow-[0_4px_14px_0_rgba(20,184,166,0.39)] hover:bg-[#0d9488] active:scale-95 transition-all text-sm uppercase tracking-wider font-display;
+}
+
+.bubbly-button-secondary {
+  @apply bg-playful-pink shadow-[0_4px_14px_0_rgba(244,63,94,0.39)] hover:bg-[#e11d48];
+}
+
+.playful-input {
+  @apply w-full bg-white border-2 border-slate-100 rounded-2xl py-3 pl-12 pr-4 text-sm font-sans focus:outline-none focus:border-playful-teal transition-all shadow-sm;
+}

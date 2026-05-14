@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isVerified() && request.auth.uid == userId;
+    }
+
+    function isValidBook(data) {
+      return data.keys().hasAll(['title', 'author', 'dateCataloged', 'userId']) 
+        && data.keys().size() >= 4 
+        && data.title is string && data.title.size() <= 500
+        && data.author is string && data.author.size() <= 500
+        && data.dateCataloged is string
+        && data.userId == request.auth.uid;
+    }
+
+    match /books/{bookId} {
+      allow get: if isOwner(resource.data.userId);
+      allow list: if isVerified() && resource.data.userId == request.auth.uid;
+      allow create: if isVerified() && isValidBook(request.resource.data);
+      allow update: if isOwner(resource.data.userId) && isValidBook(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title', 'author', 'coverUrl']);
+      allow delete: if isOwner(resource.data.userId);
+    }
+  }
+}
